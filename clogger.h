@@ -14,15 +14,16 @@ class CLogger {
 public:
 
   void            Log(const std::string& sMessage);
-  void            Log(char *pParam,
+  void            Log(const char *pParam,
                       ...);
   CLogger       & operator<<(const string& sMessage);
-  static CLogger* getLogger();
+  static CLogger* GetLogger();
 
 private:
 
   CLogger();
   CLogger(const CLogger&);
+  ~CLogger();
 
   CLogger& operator=(const CLogger&)
   {

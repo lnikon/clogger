@@ -7,7 +7,7 @@
 
 namespace Util {
 // Get current date/time format YYYY-MM-DD.HH-MM-SS
-const std::string currentDateTime()
+const std::string CurrentDateTime()
 {
   time_t now = time(NULL);
   struct tm *tstruct;

@@ -4,28 +4,18 @@
 const string CLogger::m_sFileName = "Log.txt";
 CLogger     *CLogger::m_pThis     = NULL;
 ofstream     CLogger::m_Logfile;
-
 CLogger::CLogger()
 {}
 
-CLogger * CLogger::getLogger()
-{
-  if (m_pThis == nullptr)
-  {
+CLogger * CLogger::GetLogger() {
+  if (m_pThis == NULL) {
     m_pThis = new CLogger();
     m_Logfile.open(m_sFileName.c_str(), ios::out | ios::app);
-
-    if (m_Logfile.good())
-    {
-      cout << "LOG FILE iS OPEN" << '\n';
-    }
   }
-
   return m_pThis;
 }
 
-// Implement CLogger::Log(const char* pFormat, ...);
-void CLogger::Log(char *pFormat, ...)
+void CLogger::Log(const char *pFormat, ...)
 {
   char   *pMessage = nullptr;
   int     nLength  = 0;
@@ -35,22 +25,22 @@ void CLogger::Log(char *pFormat, ...)
   nLength  = vsnprintf(NULL, 0, pFormat, args) + 1;
   pMessage = new char[nLength];
   vsprintf(pMessage, pFormat, args);
-  m_Logfile << Util::currentDateTime() << '\t';
+  m_Logfile << Util::CurrentDateTime() << '\t';
   m_Logfile << pMessage << '\n';
   va_end(args);
 
   delete[] pMessage;
 }
 
-void CLogger::Log(const std::string& sMessage)
+void CLogger::Log(const string& sMessage)
 {
-  m_Logfile << Util::currentDateTime() << '\t';
-  m_Logfile << sMessage << '\n';
+  m_Logfile <<  Util::CurrentDateTime() << ":\t";
+  m_Logfile << sMessage << "\n";
 }
 
-CLogger& CLogger::operator<<(const std::string& sMessage)
+CLogger& CLogger::operator<<(const string& sMessage)
 {
-  m_Logfile << Util::currentDateTime() << '\t';
-  m_Logfile << sMessage << '\n';
+  m_Logfile << "\n" << Util::CurrentDateTime() << ":\t";
+  m_Logfile << sMessage << "\n";
   return *this;
 }
